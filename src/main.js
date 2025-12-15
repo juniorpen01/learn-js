@@ -199,3 +199,44 @@ p("numbers, strings, and operators");
   };
   sayHelloInFiveSeconds(window.prompt("What's ur name?"));
 }
+
+{
+  p("constructors");
+  const foo = {
+    bar: "bar",
+    foo: () => p("foo"),
+    baz: () => p(foo.bar), // no this D:
+  };
+  foo.foo();
+  foo.baz();
+
+  const bar = foo.baz;
+  bar(); // haha cuz no this amirite
+
+  const qux = function () {
+    this.foo();
+  };
+  foo.qux = qux;
+  foo.qux();
+
+  qux.call(foo);
+  qux.apply(foo);
+
+  p(Math.min(5, 2, 11));
+  p(Math.min.apply([5, 2, 11], [5, 2, 11])); // this is actually useless
+  p(Math.min.apply(Math, [5, 2, 11]));
+  p(Math.min(...[5, 2, 11])); // best
+
+  const min = Math.min.bind(null);
+  p(min(11, 2, 5));
+
+  const alwaysNegInf = Math.min.bind(null, -Infinity);
+  p(alwaysNegInf(-1, 3, -2, 6));
+
+  const Foo = function () {
+    // sybau
+    this.foo = 0;
+  };
+  const quux = new Foo();
+  p(quux.foo);
+}
