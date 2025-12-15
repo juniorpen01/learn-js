@@ -181,3 +181,21 @@ p("numbers, strings, and operators");
       throw new Error("how are these matching");
   }
 }
+
+{
+  p("functions, scopes, and closures");
+
+  function foo() { } // i won't be doing this for some reason
+  const bar = () => {
+    p("from the async crap");
+  }; // this tho yes
+
+  setTimeout(bar, 5000);
+  setInterval(bar, 7000);
+
+  const sayHelloInFiveSeconds = (/** @type {string} */ name) => {
+    const prompt = `hello ${name}!`;
+    setTimeout(() => alert(prompt), 3000);
+  };
+  sayHelloInFiveSeconds(window.prompt("What's ur name?"));
+}
