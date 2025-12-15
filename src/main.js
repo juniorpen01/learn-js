@@ -125,3 +125,59 @@ p("numbers, strings, and operators");
   p(quux.undefined);
   p(quux.idiot);
 }
+
+{
+  p("logic and control structures");
+
+  let foo = 0;
+  if (foo == 2) {
+    throw new Error("how");
+  } else if (foo == 1) {
+    throw new Error("how still");
+  } else {
+    try {
+    } catch {
+      throw new Error("correct but how still");
+    }
+  }
+
+  while (true) {
+    if (foo >= 5) break;
+    p(foo);
+    foo++;
+  }
+
+  do {
+    p(foo);
+    foo++;
+  } while (foo < 10);
+
+  for (let i = 0; i < 5; ++i) {
+    p(i);
+  }
+
+  outer: for (let y = 0; y < 10; ++y)
+    for (let x = 0; x < 10; ++x) {
+      if (y == 2 && x == 0) break outer; // there's a continue outer
+      p(`x: ${x}, y:${y}`);
+    }
+
+  const person = { fname: "Audie", lname: "Murphy", age: 19 };
+  for (const k in person) p(k);
+  for (const v of Object.values(person)) p(v);
+
+  p((true && "Manfred") || "Richthofen");
+  p((false && "Manfred") || "Richthofen");
+
+  let witches = "Nachthexen";
+  switch (witches) {
+    default:
+      p(witches);
+      break;
+    case "how":
+    case "are":
+    case "these":
+    case "matching":
+      throw new Error("how are these matching");
+  }
+}
