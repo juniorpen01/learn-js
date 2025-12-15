@@ -240,3 +240,73 @@ p("numbers, strings, and operators");
   const quux = new Foo();
   p(quux.foo);
 }
+
+{
+  p("prototypes");
+
+  const foo = {
+    foo: "foo",
+  };
+  const bar = {
+    foo: 42,
+    baz: () => p("baz"),
+  };
+  const baz = {
+    qux: () => p("qux"),
+  };
+
+  Object.setPrototypeOf(foo, bar); // no __proto__s
+  Object.setPrototypeOf(bar, baz);
+
+  foo.baz();
+  p(Object.getPrototypeOf(foo).foo);
+  foo.qux();
+
+  bar.baz = null;
+  p(foo.baz);
+
+  for (const k in foo) p(k); // doesn't print foo twice? apparently checks if already exists
+  for (const k of Object.keys(foo)) p(k); // holy dont forget diff to check whether ur using of or in
+
+  const qux = Object.create(baz);
+  qux.qux();
+
+  const Foo = function () { };
+  Foo.prototype = {
+    // apparently technically more efficient cuz just one instance
+    foo: 27,
+    bar: () => p("bar"),
+  };
+
+  const quux = new Foo();
+  p(quux.foo);
+  quux.bar();
+
+  const corge = 727;
+  const grault = Number(727);
+
+  p(typeof corge);
+  p(typeof grault);
+  p(corge == grault);
+  p(corge === grault); // i think what i'm reading is outdated
+
+  String.prototype.middleCharacter = function () {
+    // sybau sybau sybau
+    return this[Math.trunc((this.length - 1) / 2)];
+  };
+
+  p("abc".middleCharacter());
+  p("abcd".middleCharacter());
+  p("abcde".middleCharacter());
+  p("abcdef".middleCharacter());
+
+  Object.create = function (/** @type {Object} */ proto) {
+    // ? idk my brain's dead
+    const Constructor = function () { };
+    Constructor.prototype = proto;
+    return new Constructor();
+  };
+
+  p(1 & 1);
+  p(2 & 1);
+}
