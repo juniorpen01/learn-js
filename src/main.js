@@ -62,10 +62,66 @@ p("numbers, strings, and operators");
   p("a"[1]);
   p("a".charAt(1));
 
-  p("a".substring(0, 3));
+  p("a".substring(0, 3)); // apparently slice just better
 
   p("asdf".length);
 
   foo = "asdf";
   // foo.length = 1;
+}
+
+{
+  p("variables, arrays, and objects");
+
+  // idiot = 1;
+  // p(idiot);
+  globalThis.idiot = 1;
+  p(globalThis.idiot);
+
+  const h = () => {
+    p(foo);
+    p(foo.length);
+  };
+
+  /**@type any[]*/
+  let foo = ["hello", , 45, true];
+  h();
+
+  foo[1] = { idiot: "L" };
+  h();
+
+  foo.push(false);
+  h();
+  foo.unshift(true);
+  h();
+
+  foo.pop();
+  h();
+  foo.shift();
+  h();
+
+  p(foo.join(""));
+
+  p({ idiot: "L" });
+
+  p("foo".slice());
+  p("foo".slice(0, 3)); // apparently slice just better
+
+  p(foo.slice(1, 2));
+  p(foo.slice(1, 3));
+
+  let bar = [...foo];
+  let baz = foo.splice(1, 3);
+  let qux = bar.splice(1, 3, "new", "new", "new");
+
+  p("foo", "bar", [1, 2]);
+  p(foo, bar, baz, qux);
+
+  const quux = { foo: 0, bar: 1, "baz qux": 2, null: 3, undefined: 4 };
+  p(quux.foo);
+  p(quux.bar);
+  p(quux["baz qux"]);
+  p(quux.null);
+  p(quux.undefined);
+  p(quux.idiot);
 }
